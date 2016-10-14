@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Object Creation</title>
+</head>
+<body>
+  <script>
+  // ES6
+  'use strict'
+  class Auto {
+    constructor(speed = 55, accel = 6, sound = "Beep") {
+      this.topSpeed = speed
+      this.accelerationTime = accel
+      this.sound = sound
+    }
+    makeSound(){
+      console.log(this.sound)
+    }
+    accelerate(){
+      var i = this.accelerationTime
+      var speed = this.topSpeed;
+      (function showCurSpeed(){
+        setTimeout(function(){
+          console.log(speed / i--)
+          if(i > 0){
+            showCurSpeed()
+          }
+        }, 1000)
+      })()
+    }
+  }
+
+  class Corvet extends Auto {
+    constructor() {
+      super(150)
+    }
+  }
+
+  var testCar = new Corvet()
+  testCar.accelerate()
+  testCar.makeSound()
+
+  delete testCar, Corvet, Auto
+  // ES5
+
+  </script>
+</body>
+</html>
