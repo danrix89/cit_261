@@ -4,9 +4,6 @@
 
 ************************************/
 
-
-
-// Happy path (onload)
 function on_load()
 {
     setupMyCanvas();
@@ -16,6 +13,7 @@ function on_load()
 function setupMyCanvas()
 {
     var myCanvas = document.getElementById("myCanvas");
+    myCanvas.style.backgroundColor = "yellow";
     myCanvas.style.width = "100%";
     myCanvas.style.height = "100%";
     myCanvas.style.backgroundColor = "yellow";
@@ -28,63 +26,32 @@ function setupMyCanvas()
     // ontouchstart
     myCanvas.ontouchstart = function(event)
     {
-        lastCoordinates.x = event.touches[0].pageX //- getOffsetLeft(myCanvas);
-        lastCoordinates.y = event.touches[0].pageY //- getOffsetTop(myCanvas);
-        console.log("starting x: " + lastCoordinates.x + " starting y: " + lastCoordinates.y)
-    }
-
-    // ontouchend
-    myCanvas.ontouchend = function(event)
-    {
-        //lastCoordinates.x = event.touches[0].pageX - getOffsetLeft(myCanvas);
-        //lastCoordinates.y = event.touches[0].pageY - getOffsetTop(myCanvas);
+        // Log where you finger first touch so you can draw from there to where you move it to later (if you move it).
+        lastCoordinates.x = event.touches[0].pageX
+        lastCoordinates.y = event.touches[0].pageY
     }
 
     // ontouchmove
     myCanvas.ontouchmove = function (event)
     {
+        // prevent scrolling with finger touches
         event.preventDefault();
-        var element = document.getElementById("myCanvas");
-        myCanvas.style.backgroundColor = "yellow";
         
-        // touch coordinates
-        var x = event.touches[0].pageX// - getOffsetLeft(myCanvas);
-        var y = event.touches[0].pageY// - getOffsetTop(myCanvas);
+        // Log where you moved your finger to (x, y)
+        var x = event.touches[0].pageX
+        var y = event.touches[0].pageY
 
         // draw
-        console.log("context width: " + context.canvas.width + " context height " + context.canvas.height)
         context.beginPath();
         context.strokeStyle = 'black';
-        context.moveTo(lastCoordinates.x, lastCoordinates.y);
-        context.lineTo(x, y);
+        context.moveTo(lastCoordinates.x, lastCoordinates.y); // Move the canvas context to the last coordinates (where you finger was last)
+        context.lineTo(x, y); // make the line connecting last connecton to your new coordinates
+        // Set your last coordinates to remember where you finger was
         lastCoordinates.x = x;
         lastCoordinates.y = y;
-        context.stroke();
+        context.stroke(); // draw the line on the screen
 
+        // Return false (only used by MS Internet Explorer
         return false;
     }
-}
-
-function getOffsetLeft(element) {
-    var offsetLeft = 0;
-    do
-    {
-        if (!isNaN(element.offsetLeft))
-        {
-            offsetLeft += element.offsetLeft;
-        }
-    } while (element = element.offsetParent);
-    return offsetLeft;
-}
-
-function getOffsetTop(element) {
-    var offsetLeft = 0;
-    do
-    {
-        if (!isNaN(element.offsetTop))
-        {
-            offsetLeft += element.offsetTop;
-        }
-    } while (element = element.offsetParent);
-    return offsetLeft;
 }
