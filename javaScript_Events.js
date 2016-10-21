@@ -93,5 +93,6 @@ function setupMyCanvas()
     Nasty Paths
 ************************************/
 
+// Brother Barney said there are no really nasty paths for events, so this is all you need
 
 
