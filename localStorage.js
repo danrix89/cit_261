@@ -16,12 +16,12 @@ function on_store_button_click()
     console.log("name: ", localStorage.getItem("name"));
 
     // Happy path(Array)
-    localStorage.setItem("myArray", [1, 2, 3, 4]);
-    console.log("myArray: ", localStorage.getItem("myArray"));
+    localStorage.setItem("myArray", JSON.stringify([1, 2, 3, 4]));
+    console.log("myArray: ", JSON.parse(localStorage.getItem("myArray")));
 
     // Happy path(Associative Array)
-    localStorage.setItem("myAssociativeArray", { "id": 1, "name": "Dan", "age": 27 });
-    console.log("myAssociativeArray: ", localStorage.getItem("myAssociativeArray"));
+    localStorage.setItem("myAssociativeArray", JSON.stringify({ "id": 1, "name": "Dan", "age": 27 }));
+    console.log("myAssociativeArray: ", JSON.parse(localStorage.getItem("myAssociativeArray")).id);
 
     // Happy path(Object)
     var myObject = { 'id': 1, 'name': "Dan", 'age': 27 };
@@ -29,10 +29,18 @@ function on_store_button_click()
     var retrievedObject = localStorage.getItem('myObject');
     console.log('myObject: ', JSON.parse(retrievedObject));
 
+    // Happy path(dot notation)
+    localStorage.name = "Dan";
+    console.log("name (dot notation): ", localStorage.name);
+
+    // Happy path(square bracket)
+    localStorage["name"] = "Dan";
+    console.log("name (square bracket): ", localStorage.getItem["name"]);
+
 
 
     /************************************
-        Strange Happy Paths
+        Strange Nasty Paths
     ************************************/
 
     // Strange happy path(Passed 'null' for first parameter)
