@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+  <style>
+  /* Bouncing ball in a box */
+  .stage {
+    width: 700px;
+    height: 200px;
+    background: linear-gradient(to top, #e1ecef, transparent);
+    position: relative;
+    border: 8px solid #7d87a5;
+    border-top: none;
+  }
+  .traveler {
+    width: 50px;
+    height: 100%;
+    position: absolute;
+
+    /* Animation */
+    animation-name: travel;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+  }
+  @keyframes travel {
+    from { left: 0; }
+    to   { left: calc(100% - 50px); }
+  }
+  .ball {
+    content: '';
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: tomato;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    /* Animation */
+    animation-name: bounce;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  @keyframes bounce {
+    from, to  {
+      bottom: 60%;
+      animation-timing-function: ease-in;
+    }
+    45% {
+      transform: scale(1, 1);
+      bottom: 0;
+      animation-timing-function: ease-out;
+    }
+    50% {
+      transform: scale(1, .6);
+      transform-origin: bottom left;
+      animation-timing-function: linear;
+    }
+    53% {
+      bottom: 0;
+      transform: scale(1, 1);
+      animation-timing-function: ease-out;
+    }
+  }
+
+  /* Box doing a wheelie */
+  .wheelie-box {
+    /* Basics */
+    width: 100px;
+    height: 50px;
+    border-radius: 3px;
+    line-height: 50px;
+    text-align: center;
+    font-family: Arial;
+    color: #fff;
+    background-color: #455ba6;
+    position: relative;
+    top: 50px;
+  }
+  .wheelie-box:not(.wheelie) {
+    cursor: pointer;
+  }
+  .wheelie {
+    /* Animation */
+    animation-name: wheelie;
+    animation-duration: 4s;
+    animation-timing-function: cubic-bezier(.3,.5,.2,1); /* default */
+    /* animation-fill-mode: forwards; */
+
+    transform-origin: left;
+  }
+  @keyframes wheelie {
+    from { left: 0px; }
+    25% { transform: rotate(-30deg); background-color: tomato; }
+    40% { transform: rotate(0deg); animation-timing-function: ease-out; background-color: #455ba6; }
+    to { left: 600px; }
+  }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="traveler">
+      <div class="ball"></div>
+    </div>
+  </div>
+
+  <div class="wheelie-box">Click Me</div>
+
+  <script>
+  var box = document.querySelector(".wheelie-box")
+  box.addEventListener("click", function() {
+  	this.classList.add("wheelie")
+    this.innerHTML = "WEEEE!!!"
+  })
+  box.addEventListener("animationend", function() {
+  	this.classList.remove("wheelie")
+    this.innerHTML = "Click Me"
+  })
+  </script>
+</body>
+</html>
