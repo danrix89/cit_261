@@ -1,28 +1,99 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
   </head>
   <body>
-    <!--Happy Path for video tag-->
-    <video width="250" height="200" controls>
-        <source src="Video.mp4" type="video/mp4">
-        <source src="Video.ogg" type="video/ogg">
-        <source src="Video.webm" type="video/webm">
+<!--
+    ********************************************************************************************************************
+    *       HAPPY PATHS
+    ********************************************************************************************************************
+-->
 
+    <!--Happy Path for video tag-->
+    <p>Video: MP4 - autoplay</p>
+    <video width="250" height="200" autoplay>
+        <source src="redwoods_grand_canyon.mp4" type="video/mp4">
+    </video>
+
+    <p>Video: MP4 - Controls</p>
+    <video width="250" height="200" controls>
+        <source src="redwoods_grand_canyon.mp4" type="video/mp4">
+    </video>
+
+    <p>Video: OGV</p>
+    <video width="250" height="200" controls>
+        <source src="redwoods_grand_canyon.ogv" type="video/ogg">
+    </video>
+
+    <p>Video: WEBM</p>
+    <video width="250" height="200" controls>
+        <source src="redwoods_grand_canyon.webm" type="video/webm">
     </video>
 
     <!--Happy Path for audio tag-->
-    <audio controls>
-     <source src="Audio.mp3" type = "audio/mpeg">
-     <source src="Audio.ogg" type = "audio/ogg">
-     <source src="Audeo.wav" type = "audeo/wav">
+    <br />
+    <p>Audio: MP3 - autoplay</p>
+    <audio autoplay>
+        <source src="example.mp3" type="audio/mpeg">
+    </audio>
 
+    <br />
+    <p>Audio: MP3 - Controls</p>
+    <audio controls>
+        <source src="example.mp3" type = "audio/mpeg">
+    </audio>
+
+    <br />
+    <p>Audio: OGG</p>
+    <audio controls>
+        <source src="example.ogg" type="audio/ogg">
+    </audio>
+
+    <br />
+    <p>Audio: WAV</p>
+    <audio controls>
+        <source src="example.wav" type="audio/wav">
     </audio>
 
     <!--Happy Path for canvas tag-->
-    <canvas id="Canvas" width="200" height="200" style="border:5px solid #000000;">
-    </canvas>
+    <br />
+    <p>Canvas</p>
+    <canvas id="Canvas" width="200" height="200" style="border:5px solid blue;"></canvas>
+
+<!--
+********************************************************************************************************************
+*       NASTY PATHS
+********************************************************************************************************************
+-->
+
+      <!--Nasty Path for video tag-->
+      <br />
+      <p>Video: No auto play or controls</p>
+      <video width="250" height="200">
+          <source src="redwoods_grand_canyon.mp4" type="video/mp4">
+      </video>
+
+      <br />
+      <p>Video: Point at audio file</p>
+      <video width="250" height="200">
+          <source src="redwoods_grand_canyon.mp3" type="video/mp4">
+      </video>
+
+      // point at work doc
+
+      // point at image file
+
+      // no src attribute
+
+      // no type attribute
+
+      <!--Nasty Path for audio tag-->
+      <br />
+      <p>Audio: No auto play or controls</p>
+      <audio>
+          <source src="example.mp3" type="audio/mp3">
+      </audio>
 
   </body>
 </html>
