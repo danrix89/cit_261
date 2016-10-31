@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -104,14 +104,17 @@
   }
 
   function onClick(e) {
-    var target = this
+      var target = this
+
+    // create a clone of the element (in this case, one of the colored boxes) and set it's original size to the size of the target (original box).
     let clone = target.cloneNode(true)
     clone.style.width = target.clientWidth + "px"
     clone.style.height = target.clientHeight + "px"
     clone.style.position = "absolute"
     clone.style.top = target.offsetTop + "px"
     clone.style.left = target.offsetLeft + "px"
-    clone.style.transition = "all .5s"
+    clone.style.transition = "all .5s" // It'll take a half second to perform the transition
+    // Set up the onclick function to shrink it back to the original size of the target (box).
     clone.onclick = function () {
       let self = this;
       self.style.width = target.clientWidth + "px"
@@ -122,7 +125,12 @@
         self.remove()
       })
     }
+
+    // Put the clone element into the HTML (show it!)
     document.body.appendChild(clone)
+    // After one second grow this cloned element to 100% of the screen with it's top and right position at 0
+    // We have to use the setTimeout() to delay the resizing.
+    // since we are setting the size earlier we need the browser optimizer will see that we're setting the size here and will skip ahead (ignoring the previous size setting).
     setTimeout(function(){
       clone.style.width = "100%"
       clone.style.height = "100%"
