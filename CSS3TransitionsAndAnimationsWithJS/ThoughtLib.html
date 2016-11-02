@@ -1,135 +1,118 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Transitions</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <style>
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
+    <meta charset="UTF-8">
+    <title>Transitions</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            box-sizing: border-box;
+            height: 100%;
+            overflow: hidden;
+        }
 
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
-  }
+        .wrapper {
+            height: 100%;
+        }
 
-  html,
-  body,
-  .full-height {
-    height: 100%;
-    overflow: hidden;
-  }
+        .box {
+            position: absolute;
+            text-align: center;
+            margin: 0;
+            width: 50%;
+            height: 50%;
+            transition: all .5s;
+            float: left;
+        }
 
-  .row {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-  }
+        .full {
+            width: 100%;
+            height: 100%;
+        }
 
-  .col {
-    width: 50%;
-  }
+        .float_left {
+            float: left;
+        }
 
-  .clickable {
-    cursor: pointer;
-  }
+        .float_right {
+            float: right;
+        }
 
-  .col .icon-container {
-    margin: 0;
-    height: 100%;
-    text-align: center;
-    position: relative;
-  }
+        .clickable {
+            cursor: pointer;
+        }
 
-  .col .icon-container > i.fa {
-    color: #eee;
-    font-size: 50px;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
+        .icon-container {
+            margin: 0;
+            height: 100%;
+            text-align: center;
+            position: relative;
+        }
 
-  .fill {
-    z-index: 2;
-    animation: fill 1s;
-    animation-fill-mode: forwards;
-    transition: width 1s, height 1s;
-  }
-  </style>
+            .icon-container > i.fa {
+                color: #eee;
+                font-size: 50px;
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                margin: auto;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+    </style>
 </head>
 <body>
-  <div class="wrapper full-height">
-    <div class="row">
-      <div class="col clickable" style="background: SteelBlue">
-        <div class="icon-container">
-          <i class="fa fa-desktop"></i>
+    <div class="wrapper">
+        <div class="box clickable" style="background: SteelBlue; top: 0; left: 0;">
+            <div class="icon-container">
+                <i class="fa fa-desktop"></i>
+            </div>
         </div>
-      </div>
-      <div class="col clickable" style="background: DarkOrange">
-        <div class="icon-container">
-          <i class="fa fa-download"></i>
+        <div class="box clickable" style="background: DarkOrange; top: 0; right: 0;">
+            <div class="icon-container">
+                <i class="fa fa-download"></i>
+            </div>
         </div>
-      </div>
+        <div class="box clickable" style="background: FireBrick; bottom: 0; left: 0;">
+            <div class="icon-container">
+                <i class="fa fa-bug"></i>
+            </div>
+        </div>
+        <div class="box clickable" style="background: ForestGreen; bottom: 0; right: 0;">
+            <div class="icon-container">
+                <i class="fa fa-cloud"></i>
+            </div>
+        </div>
     </div>
-    <div class="row">
-      <div class="col clickable" style="background: FireBrick">
-        <div class="icon-container">
-          <i class="fa fa-bug"></i>
-        </div>
-      </div>
-      <div class="col clickable" style="background: ForestGreen">
-        <div class="icon-container">
-          <i class="fa fa-cloud"></i>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <script>
-  'use strict';
-  var icons = document.querySelectorAll(".col")
-  for (let i = 0; i < icons.length; i++) {
-    icons[i].addEventListener('click', onClick)
-  }
+    <script>
+        'use strict';
+        var boxen = document.querySelectorAll(".box")
+        for (let i = 0; i < boxen.length; i++) {
+            boxen[i].addEventListener('click', onClick)
+            boxen[i].addEventListener('transitionend', onTransitionEnd)
+        }
 
-  function onClick(e) {
-    var target = this
-    let clone = target.cloneNode(true)
-    clone.style.width = target.clientWidth + "px"
-    clone.style.height = target.clientHeight + "px"
-    clone.style.position = "absolute"
-    clone.style.top = target.offsetTop + "px"
-    clone.style.left = target.offsetLeft + "px"
-    clone.style.transition = "all .5s"
-    clone.onclick = function () {
-      let self = this;
-      self.style.width = target.clientWidth + "px"
-      self.style.height = target.clientHeight + "px"
-      self.style.top = target.offsetTop + "px"
-      self.style.left = target.offsetLeft + "px"
-      this.addEventListener("transitionend", function() {
-        self.remove()
-      })
-    }
-    document.body.appendChild(clone)
-    setTimeout(function(){
-      clone.style.width = "100%"
-      clone.style.height = "100%"
-      clone.style.top = 0
-      clone.style.left = 0
-    },1)
-  }
-  </script>
+        function onClick(e) {
+            if (!this.classList.contains("full")) {
+                this.classList.add("full");
+                this.style.zIndex = "999"
+            } else {
+                this.classList.remove("full");
+            }
+        }
+
+        function onTransitionEnd(e) {
+            if (!this.classList.contains("full")) {
+                this.style.zIndex = "auto"
+            }
+        }
+    </script>
 </body>
 </html>
