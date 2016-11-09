@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transitions and Tranforms</title>
+
+  <style>
+  #box-container {
+    display: flex;
+  }
+
+  .box {
+    border: 0 solid transparent;
+    font-weight: bold;
+    font-family: Arial;
+    text-align: center;
+    line-height: 100px;
+    width: 100px;
+    height: 100px;
+    background: #ccc;
+    margin: 5px;
+    transition: all.5s linear;
+  }
+
+  .box-1:hover {
+    background: tomato;
+    border-radius: 50px;
+    transform: rotate(360deg);
+  }
+
+  .box-2{
+    transition-delay: .5s;
+  }
+  .box-2:hover {
+    border: 25px solid green;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #FFDC01;
+    transform: rotate(-360deg);
+    box-shadow: 0 0 15px #ccc;
+  }
+
+  .box-3 {
+    transform-style: preserve-3d;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .box-3 > div {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .box-3 .back {
+    background-color: #a6e3f6;
+    transform: rotateY(180deg);
+    color: #fff;
+  }
+
+  .box-3:hover {
+    transform: rotateY(180deg);
+  }
+
+  .shrink {
+    transform: scale(.5);
+  }
+
+  /* Gotcha, can't combine transforms through inheritance */
+  .box-3.shrink:hover {
+    transform: scale(.5) rotateY(180deg);
+  }
+  </style>
+</head>
+<body>
+  <div id="box-container">
+    <div class="box box-1">1</div>
+    <div class="box box-2">2</div>
+    <div class="box box-3">
+      <div class="front">3</div>
+      <div class="back">Hello!</div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var ele = document.querySelector(".box-3");
+    ele.onclick = function() {
+      if (ele.classList.contains("shrink")) {
+        ele.classList.remove("shrink");
+      } else {
+        ele.classList.add("shrink");
+      }
+    }
+  })();
+  </script>
+</body>
+</html>

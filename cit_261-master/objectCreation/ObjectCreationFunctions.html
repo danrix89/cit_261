@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Object Creation</title>
+</head>
+<body>
+  <script>
+  'use strict'
+  // Happy Paths
+  // ==============================================================
+  (function(){
+    // ES6
+    class Auto {
+      constructor(speed = 55, accel = 6, sound = "Beep") {
+        this.topSpeed = speed
+        this.accelerationTime = accel
+        this.sound = sound
+      }
+      makeSound(){
+        console.log(this.sound)
+      }
+      accelerate(){
+        var i = this.accelerationTime
+        var speed = this.topSpeed;
+        (function showCurSpeed(){
+          setTimeout(function(){
+            console.log(speed / i--)
+            if(i > 0){
+              showCurSpeed()
+            }
+          }, 1000)
+        })()
+      }
+    }
+
+    class Corvet extends Auto {
+      constructor() {
+        super(150)
+      }
+    }
+
+    var testCar = new Corvet()
+    testCar.accelerate()
+    testCar.makeSound()
+  })()
+
+  (function(){
+    // ES5
+    function Auto(speed, accel, sound){
+      if(typeof speed !== "undefined")
+        this.speed = speed
+      else
+        this.speed = 55
+      if(typeof accel !== "undefined")
+        this.accelerationTime = accel
+      else
+        this.accelerationTime = 6
+      if(typeof sound !== "undefined")
+        this.sound = sound
+      else
+        this.sound = "Beep"
+    }
+    Auto.prototype.makeSound = function() {
+      console.log(this.sound)
+    }
+    Auto.prototype.accelerate = function() {
+      var i = this.accelerationTime
+      var speed = this.topSpeed;
+      (function showCurSpeed(){
+        setTimeout(function(){
+          console.log(speed / i--)
+          if(i > 0){
+            showCurSpeed()
+          }
+        }, 1000)
+      })()
+    }
+
+    function Corvet(sound){
+      Auto.call(this, undefined, undefined, sound)
+    }
+  })()
+
+  // Nasty Paths
+  // ==============================================================
+
+  </script>
+</body>
+</html>
