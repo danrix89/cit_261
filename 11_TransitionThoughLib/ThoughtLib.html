@@ -92,27 +92,29 @@
     </div>
 
     <script>
-        'use strict';
-        var boxen = document.querySelectorAll(".box")
-        for (let i = 0; i < boxen.length; i++) {
-            boxen[i].addEventListener('click', onClick)
-            boxen[i].addEventListener('transitionend', onTransitionEnd)
-        }
-
-        function onClick(e) {
-            if (!this.classList.contains("full")) {
-                this.classList.add("full");
-                this.style.zIndex = "999"
-            } else {
-                this.classList.remove("full");
+        (function () {
+            'use strict';
+            var boxen = document.querySelectorAll(".box")
+            for (let i = 0; i < boxen.length; i++) {
+                boxen[i].addEventListener('click', onClick)
+                boxen[i].addEventListener('transitionend', onTransitionEnd)
             }
-        }
 
-        function onTransitionEnd(e) {
-            if (!this.classList.contains("full")) {
-                this.style.zIndex = "auto"
+            function onClick(e) {
+                if (!this.classList.contains("full")) {
+                    this.classList.add("full");
+                    this.style.zIndex = "999"
+                } else {
+                    this.classList.remove("full");
+                }
             }
-        }
+
+            function onTransitionEnd(e) {
+                if (!this.classList.contains("full")) {
+                    this.style.zIndex = "auto"
+                }
+            }
+        })();
     </script>
 </body>
 </html>

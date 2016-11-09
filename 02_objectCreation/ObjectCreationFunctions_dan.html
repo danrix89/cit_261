@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Object Creation</title>
+</head>
+<body>
+  <script>
+      'use strict';
+
+      /***************************************************************************
+        Happy Path - ECMA Script 5
+      ***************************************************************************/
+      console.log("************** Happy Path - ECMA Script 5 **************");
+      function Animal(a_number_of_limbs, a_diet_type, a_sound) {
+          this.number_of_limbs = a_number_of_limbs;
+          this.diet_type = a_diet_type;
+          this.sound = a_sound;
+          this.makeSound = function() {
+            console.log(this.sound)
+          }
+          this.eat = function(food_type) {
+            if (this.diet_type == null) {
+                console.log("ERROR: No diet type")
+            } else if ((this.diet_type == "omnivore" && (food_type == "plants" || food_type == "meat")) ||
+                (this.diet_type == "herbivore" && food_type == "plants") ||
+                (this.diet_type == "carnivore" && food_type == "meat")) {
+                console.log("Yum!")
+            } else {
+                console.log("Yuk!")
+            }
+          }
+      }
+
+      function Dog(a_color) {
+        Animal.call(this, 4, "carnivore", "bark")
+        this.color = a_color;
+            
+        this.display_color = function() {
+            console.log(this.color)
+        }
+      }
+
+      function Golden_Retriever() {
+        Dog.call(this, "golden-brown")
+      }
+
+      console.log("Create an Animal (human) and test it")
+      var human = new Animal(2, "omnivore", "Hello");
+      human.eat("plants");
+      human.eat("meat");
+      human.makeSound();
+
+      console.log("Create a Dog and test it")
+      var doggy = new Dog("black");
+      doggy.eat("meat");
+      doggy.eat("plants");
+      doggy.makeSound();
+      doggy.display_color();
+
+      console.log("Create a Golden_Retriever and test it")
+      var buddy = new Golden_Retriever();
+      buddy.eat("meat");
+      buddy.eat("plants");
+      buddy.makeSound();
+      buddy.display_color();
+
+
+      /***************************************************************************
+        Happy Path - ECMA Script 6
+      ***************************************************************************/
+      console.log("************** Happy Path - ECMA Script 6 **************");
+      class Animal_ES6 {
+          constructor(a_number_of_limbs = 0, a_diet_type = "herbivore", a_sound = "") {
+              this.number_of_limbs = a_number_of_limbs;
+              this.diet_type = a_diet_type;
+              this.sound = a_sound;
+          }
+              makeSound() {
+                  console.log(this.sound)
+              }
+              eat(food_type) {
+                  if ((this.diet_type == "omnivore" && (food_type == "plants" || food_type == "meat")) ||
+                      (this.diet_type == "herbivore" && food_type == "plants") ||
+                      (this.diet_type == "carnivore" && food_type == "meat")) {
+                      console.log("Yum!")
+                  } else {
+                      console.log("Yuk!")
+                  }
+              }
+          }
+
+      class Dog_ES6 extends Animal_ES6 {
+          constructor(a_color = "") {
+              super(4, "carnivore", "bark");
+              this.color = a_color;
+          }
+              display_color() {
+                  console.log(this.color)
+              }
+      }
+
+      class Golden_Retriever_ES6 extends Dog_ES6 {
+          constructor() {
+              super("golden-brown");
+          }
+      }
+
+      console.log("Create an Animal (ES6) and test it")
+      var human_ES6 = new Animal_ES6(2, "omnivore", "Hello");
+      human_ES6.eat("plants");
+      human_ES6.eat("meat");
+      human.makeSound();
+
+      console.log("Create a Dog (ES6) and test it")
+      var doggy_ES6 = new Dog_ES6("black");
+      doggy_ES6.eat("meat");
+      doggy_ES6.eat("plants");
+      doggy_ES6.makeSound();
+      doggy_ES6.display_color();
+
+      console.log("Create a Golden_Retriever (ES6) and test it")
+      var buddy_ES6 = new Golden_Retriever_ES6();
+      buddy_ES6.eat("meat");
+      buddy_ES6.eat("plants");
+      buddy_ES6.makeSound();
+      buddy_ES6.display_color();
+
+      /***************************************************************************
+        Nasty Paths
+      ***************************************************************************/
+      console.log("************** Nasty Paths - ECMA Script 5 **************");
+
+      var animal = new Animal();
+      animal.eat("meat");
+      console.log("No constructor arguments given")
+
+      try {
+          animal.display_color();
+      }
+      catch(exception)
+      {
+          console.log("No display_color function in Animal class")
+      }
+
+      // Not putting 'this' as first paremter
+      try {
+          function Cat() {
+              Animal.call(4, "carnivore", "meow");
+          }
+      }
+      catch(exception)
+      {
+          console.log("Not putting 'this' as first paremter of Animal.call(): " + exception)
+      }
+
+      // Circular inheritance (ES5 & ES6)
+      try {
+          function A() {
+              B.call(this);
+              this.a = "a"
+          }
+
+          function B() {
+              C.call(this);
+              this.b = "b"
+          }
+
+          function C() {
+              A.call(this);
+              this.c = "c"
+          }
+
+          var obj_a = new A();
+          var obj_b = new B();
+          var obj_c = new C();
+
+          //console.log("Class A - a: " + obj_a.a + " b: " + obj_a.b + " c: " + obj_a.c)
+          //console.log("Class B - a: " + obj_b.a + " b: " + obj_b.b + " c: " + obj_b.c)
+          //console.log("Class C - a: " + obj_c.a + " b: " + obj_c.b + " c: " + obj_c.c)
+      } catch (exception) {
+          console.log("Circular Inheritance (ECMA Script 5): " + exception)
+      }
+
+      try {
+        class A extends B {
+        }
+
+        class B extends C {
+        }
+
+        class C extends A {
+        }
+      } catch (exception) {
+          console.log("Circular Inheritance (ECMA Script 6): " + exception)
+      }
+
+      // (ES6) Inheriting from null, 1, some variable that isn't a class
+      try {
+          class foo extends null {
+              constructor() {
+                  super();
+              }
+          }
+
+      } catch (exception) {
+          console.log("Inheritance (null): " + exception)
+      }
+            
+      try {
+          class foo extends 1 {
+          }
+      } catch (exception) {
+          console.log("Inheritance (1): " + exception)
+      }
+      
+      try {
+          class foo extends true {
+          }
+      } catch (exception) {
+          console.log("Inheritance (true): " + exception)
+      }
+
+      try {
+          class foo extends "string" {
+          }
+      } catch (exception) {
+          console.log("Inheritance (string): " + exception)
+      }
+
+  </script>
+</body>
+</html>

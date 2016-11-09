@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Manipulation</title>
+</head>
+<body>
+    <div id="sample_1">
+    </div>
+    <div id="sample_1_nasty">
+    </div>
+
+    <script>
+        'use strict';
+        /***************************************************************************
+        Happy Path - ECMA Script 5
+        ***************************************************************************/
+        var main_div = document.getElementById("sample_1");
+        main_div.innerHTML = "Hi";
+
+        var element_one = document.createElement("div");
+        main_div.appendChild(element_one);
+        var node_one = document.createTextNode("More Text!");
+        element_one.appendChild(node_one);
+
+        //
+        var element_two = document.createElement("div");
+        var node_two = document.createTextNode("More Text Again!");
+        element_two.appendChild(node_two);
+        element_one.appendChild(element_two);
+
+        var element_three = document.createElement("div");
+        var node_three = document.createTextNode("Text Before!");
+        element_three.appendChild(node_three);
+        main_div.insertBefore(element_three, main_div.childNodes[1]); // Placed after "Hi" (which is the first Node)
+
+
+        /***************************************************************************
+        Nasty Paths - ECMA Script 5
+        ***************************************************************************/
+        var main_div_nasty = document.getElementById("sample_1_nasty");
+        main_div_nasty.innerHTML = "Nasty";
+
+        var nasty_element = null;
+        var nasty_node = null;
+
+        // NASTY ELEMENT CREATION
+        // two parents - append the child child to two different parent
+        // append the child to itself
+        // Insert before on a parent that the child is not in that parent
+        try {
+            main_div_nasty.appendChild(nasty_element);
+        } catch (exception) {
+            console.log("Append Child Null Element - " + exception);
+        }
+
+        try {
+            nasty_element = document.createElement("");
+        } catch (exception) {
+            console.log("Element Creation: empty string - " + exception);
+        }
+        
+
+        try {
+            nasty_element = document.createElement(1);
+        } catch (exception) {
+            console.log("Element Creation: number - " + exception);
+        }
+
+        nasty_element = document.createElement(null);
+        main_div_nasty.appendChild(nasty_element);
+        
+        nasty_element = document.createElement(true);
+        main_div_nasty.appendChild(nasty_element);
+
+        // NASTY TEXT NODE CREATION
+        try {
+            nasty_element.appendChild(nasty_node);
+        } catch (exception) {
+            console.log("Append Child Null Node - " + exception);
+        }
+
+        try {
+            nasty_node = document.createTextNode(1);
+            nasty_element.appendChild(nasty_node);
+        } catch (exception) {
+            console.log("Node Creation: number - " + exception);
+        }
+
+        try {
+            nasty_node = document.createTextNode(true);
+            nasty_element.appendChild(nasty_node);
+        } catch (exception) {
+            console.log("Node Creation: bool - " + exception);
+        }
+
+        try {
+            nasty_node = document.createTextNode(null);
+            nasty_element.appendChild(nasty_node);
+        } catch (exception) {
+            console.log("Node Creation: null - " + exception);
+        }
+
+        // two parents - append the child child to two different parents
+        
+        var new_element = document.createElement("p");
+        new_element.id = "test_id"
+        main_div.appendChild(new_element);
+        main_div_nasty.appendChild(new_element);
+
+        console.log("Who is the parent of the new element? : " + document.getElementById("test_id").parentElement.id)
+
+        // append the child to itself
+        try {
+            var new_element = document.createElement("p");
+            new_element.appendChild(new_element);
+        } catch (exception) {
+            console.log("Appending child to itself: " + exception)
+        }
+
+        // Insert use a parent's insertBefore function but use another parent's reference point
+        var foobar_element = document.createElement("div");
+        try {
+            main_div.insertBefore(foobar_element, main_div_nasty.childNodes[0]);
+        } catch (exception) {
+            console.log("Insert use a parent's insertBefore function but use another parent's reference point: " + exception)
+        }
+
+    </script>
+</body>
+</html>
