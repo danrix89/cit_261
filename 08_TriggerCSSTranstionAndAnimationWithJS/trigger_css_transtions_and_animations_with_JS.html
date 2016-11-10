@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Triggering CSS with JS</title>
+    <script src="trigger_css_transtions_and_animations_with_JS.js"></script>
+    <link type="text/css" rel="stylesheet" href="trigger_css_transtions_and_animations_with_JS.css"/>
+</head>
+<body onload="on_page_load(event)">
+    <div class="box-container">
+        <p>Happy Paths</p>
+        <div id="transition_box" class="box">Transition</div>
+        <div id="animation_box" class="box">Animation</div>
+    </div>
+    <div id="nasty_container" class="box-container">
+        <p>Nasty Paths</p>
+    </div>
+</body>
+</html>

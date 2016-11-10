@@ -1,0 +1,63 @@
+﻿/******************************************************************
+   Happy Paths
+******************************************************************/
+.box-container {
+    display: flex;
+}
+
+.box {
+    font-weight: bold;
+    font-family: Arial;
+    text-align: center;
+    line-height: 200px;
+    width: 200px;
+    height: 200px;
+    background: #4cff00;
+    margin: 10px;
+    transition: all.5s linear;
+    cursor: pointer;
+    color: white;
+}
+
+.nasty_box {
+    font-weight: bold;
+    font-family: Arial;
+    text-align: center;
+    line-height: 100px;
+    width: 100px;
+    height: 100px;
+    background: #808080;
+    margin: 10px;
+    transition: all.5s linear;
+    cursor: pointer;
+    color: white;
+}
+
+.transition_box_click {
+    background: tomato;
+    border-radius: 200px;
+    transform: rotate(360deg);
+}
+
+@keyframes happy {
+    10% { background-color: royalblue; }
+    25% { transform: scale(1.3); }
+    50% { transform: rotate(180deg); }
+    100% { transform: scale(1); }
+}
+
+@keyframes nasty {
+    25% { transform: scale(1.2); }
+    101% { background-color: sandybrown; }
+}
+
+@keyframes nasty_empty {
+
+}
+
+@keyframes nasty_out_of_order {
+    100% { background-color: sandybrown; }
+    25% { transform: scale(1.2); }
+    75% { transform: rotate(90deg); }
+    50% { transform: rotate(90deg); }
+}
