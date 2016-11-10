@@ -1,0 +1,55 @@
+﻿input,
+div {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+}
+
+input {
+    width: 200px;
+    height: 30px;
+    font-family: Arial;
+}
+
+div {
+    /*background-color: rgba(0,0,0,.1);*/
+    color: #808080;
+    width: 200px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 5px;
+    font-family: Arial;
+}
+
+.transform_overlay {
+    transform: translateY(0%);
+    transition-duration: .5s;
+}
+
+.transform_top {
+    transition-duration: .1s;
+    transform: translateY(-80%);
+    color: #ff6a00;
+}
+
+.overlay_animation {
+    animation: pop_up ease-in-out .8s 1 normal none;
+    transform: translateY(-80%);
+}
+
+.top_animation {
+    animation: pop_down ease-in-out .8s 1 normal none;    
+    transform: translateY(0%);
+}
+
+@keyframes pop_up {
+    0% { transform: translate(0%, 0%); }
+    5% { transform: translate(0%, 0%); }
+    50% { transform: translate(0%, -100%); }
+}
+
+@keyframes pop_down {
+    0% { transform: translate(0%, -80%); }
+    5% { transform: translate(0%, -80%); }
+    50% { transform: translate(0%, -100%); }
+}
