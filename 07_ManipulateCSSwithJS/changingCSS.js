@@ -50,7 +50,21 @@ function on_page_load(event) {
     nasty_messages = nasty_messages + " <br /> " + " Assign a fontSize to \"true\"";
     document.getElementById("nasty").innerHTML = nasty_messages;
 
-    // using left or top 
+    // using left inproperly
+    document.getElementById("nasty_two").style.width = "250px";
+    document.getElementById("nasty_two").style.height = "250px";
+    document.getElementById("nasty_two").style.position = "absolute";
+    document.getElementById("nasty_two").style.backgroundColor = "red";
+    document.getElementById("nasty_two").style.left = "-100px";
+    document.getElementById("nasty_two").style.textAlign = "right";
+
+    // using right inproperly (will not scroll because viewport is set)
+    document.getElementById("nasty_three").style.width = "250px";
+    document.getElementById("nasty_three").style.height = "250px";
+    document.getElementById("nasty_three").style.position = "absolute";
+    document.getElementById("nasty_three").style.backgroundColor = "blue";
+    document.getElementById("nasty_three").style.right = "-100px";
+    document.getElementById("nasty_three").style.textAlign = "left";
 }
 
 

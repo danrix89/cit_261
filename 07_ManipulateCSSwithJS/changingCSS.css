@@ -6,3 +6,10 @@
 .bold {
     font-weight: bold;
 }
+
+.nasty_divs {
+    color: white;
+    line-height: 250px;
+    font-family: Arial;
+    font-weight: bold;
+}
