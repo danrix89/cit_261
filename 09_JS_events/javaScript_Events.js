@@ -1,6 +1,6 @@
 /************************************
 
-    Sandbox: localStorage API
+    Sandbox: JavaScript EVents
 
 ************************************/
 
@@ -14,6 +14,7 @@ function on_load() {
     document.getElementById("message").innerHTML = "onload used the 'on_load' function."
     setupMyCanvas();
 }
+
 // Happy path (onchange)
 function on_change() {
     var element = document.getElementById("on_change");
