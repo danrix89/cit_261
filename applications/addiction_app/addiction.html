@@ -3,30 +3,36 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Addiction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addiction Help</title>
     <link type="text/css" rel="stylesheet" href="addiction.css"/>
     <script src="addiction.js"></script>
 </head>
 <body onload="on_page_load(event)">
-    <div class="main_container">
-        <div class="help_button">HELP</div>
+
+    <!-- Help View & Controls -->
+    <div id="help_view" class="help_view aboslute">
+        <div id="help_button" class="help_button">HELP</div>
     </div>
 
-    <!-- Sign Up Modal Dialog -->
-    <div id="sign_up_modal_background" class="modal_background">
-        <div id="sign_up_modal" class="modal">
-            <input type="text" id="sign_up_modal_name" class="sign_up_modal_control" />
-            <div id="sign_up_modal_name_overlay" class="overlay sign_up_modal_control"></div>
-            <input type="text" id="sign_up_modal_phone" class="sign_up_modal_control" />
-            <div id="sign_up_modal_phone_overlay" class="overlay sign_up_modal_control"></div>
-            <button id="sign_up_modal_submit" class="sign_up_modal_control">Submit</button>
-        </div>
+    <!-- Sign Up View & Controls -->
+    <div id="sign_up_view" class="view hidden_left aboslute">
+        <input type="text" id="sign_up_view_name" class="view_control" />
+        <div id="sign_up_view_name_overlay" class="overlay view_control"></div>
+        <input type="text" id="sign_up_view_phone" class="view_control" />
+        <div id="sign_up_view_phone_overlay" class="overlay view_control"></div>
+        <div id="error_messages" class="view_control"></div>
+        <button id="sign_up_view_submit" class="view_control">Submit</button>
     </div>
 
-    <!-- Sign Up Modal Dialog -->
-    <div id="data_capture_modal_background" class="modal_background">
-        <div class="modal">
-        </div>
+    <!-- Getting Help View & Controls -->
+    <div id="getting_help_view" class="view hidden_left aboslute">
+        <div id="getting_help_view_message" class="view_control message"></div>
+    </div>
+
+    <!-- Mentor Contacted View & Controls -->
+    <div id="mentor_contacted_view" class="view hidden_left aboslute">
+        <div id="mentor_contacted_view_message" class="view_control message"></div>
     </div>
 
 </body>

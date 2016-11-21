@@ -4,9 +4,17 @@ body {
     height: 100%;
     margin: 0 auto;
     padding: 0;
+    background-color: #414141;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-.main_container {
+.aboslute {
+    position: absolute
+}
+
+.help_view {
+    left: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,56 +32,49 @@ body {
     font-size: 100px;
 }
 
-/******************************************************************************************
-* MODAL DIALOG
-******************************************************************************************/
-.modal_background {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: hidden; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4);
+.hidden_left {
+    left: 100%;
+    opacity: 0;
 }
 
-.modal {
-    position: relative;
-    background-color: #414141;
-    padding: 0;
-    width: 85%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: modal_appear_from_top;
-    animation-duration: 0.4s
+.fade_out {
+    transition-duration: 2s;
+    left: -100%;
+    opacity: 0;
 }
 
-.modal_disapear {
-    animation-name: modal_disappear_to_top;
-    animation-duration: 0.4s
+.fade_in {
+    transition-duration: 2s;
+    left: 0%;
+    opacity: 1;
 }
 
-@keyframes modal_appear_from_top {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
+@keyframes fade_out {
+    from {opacity: 1;}
+    to { opacity: 0; }
 }
 
-@keyframes modal_disappear_to_top {
-    from {top:0; opacity:1}
-    to {top:-300px; opacity:0}
+@keyframes fade_in {
+    from {opacity: 0;}
+    to { opacity: 1; }
 }
 
 /******************************************************************************************
-* MODAL DIALOG - INPUTS & OVERLAYS
+* MODAL DIALOG - CONTROLS, INPUTS & OVERLAYS (DON'T DELETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
 ******************************************************************************************/
-.sign_up_modal_control {
+.view_control {
     position: absolute;
-    font-size: 5em;
+    font-size: 3.5em;
     font-family: Arial;
+    width: 95%;
+}
+
+.message {
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    padding: 20px 50px 20px 50px;
+    margin: 0 auto;
 }
 
 .overlay {
